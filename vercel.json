@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/billing.html",
+      "destination": "/Billing.html",
       "permanent": true
     }
   ]
