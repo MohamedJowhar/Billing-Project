@@ -1,9 +1,9 @@
 {
-  "version": 2,
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/",
+      "destination": "/billing.html",
+      "permanent": true
     }
   ]
 }
