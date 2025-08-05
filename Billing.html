@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing</title>
+    <script src="jQuery.min.js"></script>
+    <link rel="stylesheet" href="Css/Style.css">
+    
+</head>
+
+<body>
+     <h2>Billing Invoice</h2>
+     <table>
+        <thead>
+       <tr>
+         <th>Customer Name</th>
+        <th>Old Read</th>
+        <th>New Read</th>
+        <th>Difference</th>
+        <th>Rate</th>
+        <th>Amount</th>
+        <th>Balance</th>
+        <th>Total</th>
+        <th>Save</th>
+       </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+           <td class="Name">Mohamed Abdullahi</td>
+            <td><input type="text" value="15" class="old-read"></td>
+            <td><input type="text" value="" class="new-read"></td>
+            <td> <input type="text"    class="Difference"></td>
+            <td><input type="text"   readonly value="1.5" class="rate"></td>
+            <td><input type="text"   readonly class="amount"></td>
+            <td><input type="text"   value="0" class="balance"></td>
+            <td><input type="text"   readonly class="Total"></td>
+            <td><button  class="save">Save</button></td>
+        </tr>
+
+
+           <tr>
+           <td class="Name">Nor Ahmed</td>
+            <td><input type="text" value="30" class="old-read"></td>
+            <td><input type="text" value="" class="new-read"></td>
+            <td> <input type="text"    class="Difference"></td>
+            <td><input type="text"   readonly value="1.5" class="rate"></td>
+            <td><input type="text"   readonly class="amount"></td>
+            <td><input type="text"   value="10" class="balance"></td>
+            <td><input type="text"   readonly class="Total"></td>
+            <td><button  class="save">Save</button></td>
+        </tr>
+
+
+           <tr>
+           <td class="Name">Aisha Ahmed</td>
+            <td><input type="text" value="50" class="old-read"></td>
+            <td><input type="text" value="" class="new-read"></td>
+            <td> <input type="text"    class="Difference"></td>
+            <td><input type="text"   readonly value="1.5" class="rate"></td>
+            <td><input type="text"   readonly class="amount"></td>
+            <td><input type="text"   value="60" class="balance"></td>
+            <td><input type="text"   readonly class="Total"></td>
+            <td><button  class="save">Save</button></td>
+        </tr>
+          
+        </tbody>
+        <tfoot>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total</td>
+            <td class="AllTotal"></td>
+        </tfoot>
+     </table>
+
+</body>
+</html>
+
+<script>
+
+    
+    $("body").on("blur",".new-read",function(){
+      var tr=$(this).closest("tr");
+      var old=parseFloat(tr.find(".old-read").val());
+        var new_read=parseFloat(tr.find(".new-read").val());
+      
+        var rate=parseFloat(tr.find(".rate").val());
+      
+        var balance=parseFloat(tr.find(".balance").val());
+
+        if(isNaN(new_read)){
+            return false;
+        }
+  
+
+        if(new_read < old){
+            alert("new-readka kama yaraan karo old");
+            $(this).val("");
+            $(this).focus();
+            return false;
+            
+          
+        }
+
+
+        var Difference=new_read-old;
+        var amount=Difference*rate
+
+
+        tr.find(".Difference").val(Difference);
+       
+         tr.find(".amount").val(amount);
+
+           tr.find(".Total").val(balance+amount);
+
+            updateTotal();
+
+    })
+
+
+
+    function updateTotal(){
+      var sum=0;
+     $(".Total").each(function(){
+     var qiimo=parseFloat($(this).val());
+     if(!isNaN(qiimo)){
+        sum+=qiimo;
+     }
+      
+    })
+
+
+   $(".AllTotal").text("$"+sum.toFixed(2));
+    }
+
+    $("body").on("click",".save",function(){
+        var tr=$(this).closest("tr");
+        tr.remove();
+         updateTotal();
+    })
+</script>
